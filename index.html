@@ -2,335 +2,83 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Be My Valentine</title>
+<title>Valentine's Day Envelope Animation</title>
 <style>
     body {
         background: #ffdde1;
         font-family: Arial, sans-serif;
         text-align: center;
-        padding-top: 100px;
-        overflow: hidden;
-        animation: fadeIn 1.5s ease-in-out;
+        padding: 50px;
+    }
+
+    .envelope {
         position: relative;
+        width: 150px;
+        height: 100px;
+        margin: 50px auto;
+        background: #f37070;
+        border-bottom: 30px solid #d45858;
     }
 
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
-    h1 {
-        font-size: 40px;
-        color: #b30047;
-        animation: popIn 1s ease;
-    }
-
-    @keyframes popIn {
-        0% { transform: scale(0.5); opacity: 0; }
-        100% { transform: scale(1); opacity: 1; }
-    }
-
-    .btn {
-        padding: 15px 30px;
-        margin: 20px;
-        font-size: 20px;
-        border: none;
-        border-radius: 10px;
-        cursor: pointer;
-    }
-
-    #yesBtn {
-        background-color: #ff4d79;
-        color: white;
-        animation: bounce 1.5s infinite;
-    }
-
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-    }
-
-    #noBtn {
-        background-color: #cccccc;
-        color: black;
-        position: relative;
-    }
-
-    /* Floating hearts */
-    .heart {
-        position: fixed;
-        bottom: -20px;
-        color: #ff4d79;
-        font-size: 25px;
-        animation: floatUp 6s linear infinite;
-        opacity: 0.8;
-        pointer-events: none;
-    }
-
-    @keyframes floatUp {
-        0% { transform: translateY(0) scale(1); opacity: 0.8; }
-        100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
-    }
-
-    /* Sparkles */
-    .sparkle {
-        position: fixed;
-        width: 6px;
-        height: 6px;
-        background: white;
-        border-radius: 50%;
-        box-shadow: 0 0 8px white;
-        animation: sparkleFloat 3s linear infinite;
-        pointer-events: none;
-    }
-
-    @keyframes sparkleFloat {
-        0% { transform: translateY(0) scale(1); opacity: 1; }
-        100% { transform: translateY(-100vh) scale(0.2); opacity: 0; }
-    }
-
-    /* Fade-to-pink overlay */
-    #fadeOverlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: pink;
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 2s ease-in-out;
-    }
-
-    /* Heart explosion */
-    .boomHeart {
-        position: fixed;
-        font-size: 30px;
-        color: #ff4d79;
-        animation: explode 1s ease-out forwards;
-        pointer-events: none;
-    }
-
-    @keyframes explode {
-        0% { transform: scale(0.2); opacity: 1; }
-        100% { transform: scale(3); opacity: 0; }
-    }
-    
-    /* Envelope container */
-    #envelopeContainer {
-        position: fixed;
-        bottom: -200px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 260px;
-        animation: envelopeRise 2s ease-out forwards;
-    }
-
-    @keyframes envelopeRise {
-        0% { bottom: -200px; }
-        100% { bottom: 30%; }
-    }
-
-    /* Envelope body */
-    #envelopeBody {
-        width: 260px;
-        position: relative;
-        z-index: 2;
-    }
-
-    /* Envelope flap */
-    #envelopeFlap {
-        width: 260px;
+    .envelope::before, .envelope::after {
+        content: '';
         position: absolute;
-        top: 0;
-        left: 0;
-        transform-origin: top center;
-        animation: flapOpen 1.5s ease-out forwards;
-        animation-delay: 1s;
-        z-index: 3;
-    }
-
-    @keyframes flapOpen {
-        0% { transform: rotateX(0deg); }
-        100% { transform: rotateX(180deg); }
-    }
-
-    /* Letter */
-    #letter {
-        position: absolute;
-        top: 40px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 200px;
-        opacity: 0;
-        animation: letterSlide 2s ease-out forwards;
-        animation-delay: 1.4s;
-        z-index: 1;
-    }
-
-    @keyframes letterSlide {
-        0% { top: 60px; opacity: 0; }
-        100% { top: -60px; opacity: 1; }
-    }
-
-    /* Soft glow behind letter */
-    #letterGlow {
-        position: absolute;
-        top: -20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 260px;
-        height: 260px;
-        background: radial-gradient(rgba(255,200,220,0.8), rgba(255,200,220,0));
-        border-radius: 50%;
-        opacity: 0;
-        animation: glowFade 2s ease-out forwards;
-        animation-delay: 1.4s;
-        filter: blur(20px);
-    }
-
-    @keyframes glowFade {
-        0% { opacity: 0; }
-        100% { opacity: 1; }
-    }
-
-    /* Typewriter text */
-    .typewriter {
-        font-size: 26px;
-        color: #b30047;
-        font-family: "Georgia", serif;
-        white-space: nowrap;
-        overflow: hidden;
-        border-right: 2px solid #b30047;
         width: 0;
-        animation: typing 3s steps(20) forwards, blink .7s infinite;
-        margin-top: 20px;
+        height: 0;
+        border-style: solid;
     }
 
-    @keyframes typing {
-        from { width: 0; }
-        to { width: 180px; }
+    .envelope::before {
+        top: -40px;
+        left: 0;
+        border-width: 0 75px 40px 75px;
+        border-color: transparent transparent #f37070 transparent;
     }
 
-    @keyframes blink {
-        50% { border-color: transparent; }
+    .envelope::after {
+        bottom: -30px;
+        left: 0;
+        border-width: 30px 75px 0 75px;
+        border-color: #d45858 transparent transparent transparent;
     }
 
-    /* Floating photos */
-    .floatingPhoto {
-        position: fixed;
-        width: 130px;
-        border-radius: 12px;
-        opacity: 0;
-        animation: floatPhoto 12s linear infinite;
+    .flap {
+        position: absolute;
+        top: -40px;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 40px 75px;
+        border-color: #f37070 transparent;
+        transform-origin: center top;
+        animation: openFlap 2s infinite alternate;
     }
 
-    @keyframes floatPhoto {
-        0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-        20% { opacity: 1; }
-        100% { transform: translateY(-120vh) rotate(10deg); opacity: 0; }
+    @keyframes openFlap {
+        0% {
+            transform: rotateX(0deg);
+        }
+        100% {
+            transform: rotateX(-20deg);
+        }
     }
 
+    .message {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 16px;
+        color: white;
+        text-align: center;
+    }
 </style>
 </head>
 <body>
-
-<!-- Background Music -->
-<audio autoplay loop>
-    <source src="YOUR-MUSIC-LINK.mp3" type="audio/mpeg">
-</audio>
-
-<div id="fadeOverlay"></div>
-
-<h1>Will you be my Valentine?</h1>
-
-<video autoplay loop muted playsinline>
-    <source src="Goofy.MP4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
-
-<button id="yesBtn" class="btn" onclick="sayYes()">Yes</button>
-<button id="noBtn" class="btn" onmouseover="moveButton()">No</button>
-
-<script>
-
-// YES BUTTON — envelope animation + glow + typewriter + floating photos
-function sayYes() {
-
-    // Fade to pink
-    document.getElementById("fadeOverlay").style.opacity = "1";
-
-    // Heart explosion
-    for (let i = 0; i < 12; i++) {
-        const h = document.createElement("div");
-        h.classList.add("boomHeart");
-        h.innerHTML = "❤️";
-        h.style.left = (window.innerWidth / 2) + (Math.random() * 200 - 100) + "px";
-        h.style.top = (window.innerHeight / 2) + (Math.random() * 200 - 100) + "px";
-        document.body.appendChild(h);
-        setTimeout(() => h.remove(), 1000);
-    }
-
-    // Replace page content AFTER fade
-    setTimeout(() => {
-        document.body.innerHTML = `
-            <div id="envelopeContainer">
-                <img id="envelopeBody" src="https://i.imgur.com/3ZQ3ZQF.png">
-                <img id="envelopeFlap" src="https://i.imgur.com/3ZQ3ZQF.png">
-                <div id="letterGlow"></div>
-                <img id="letter" src="https://i.imgur.com/8QfQ8Q8.png">
-            </div>
-
-            <div style="position: fixed; top: 65%; left: 50%; transform: translateX(-50%);">
-                <div class="typewriter">I love you</div>
-            </div>
-
-            <!-- Floating photos (replace URLs later) -->
-            <img class="floatingPhoto" style="left: 10%;" src="IMG_6483.jpeg">
-            <img class="floatingPhoto" style="left: 70%;" src="IMG_6498.jpeg">
-        `;
-    }, 1500);
-}
-
-
-
-// NO BUTTON — moves away
-function moveButton() {
-    const btn = document.getElementById("noBtn");
-    const width = btn.offsetWidth;
-    const height = btn.offsetHeight;
-    const x = Math.random() * (window.innerWidth - width);
-    const y = Math.random() * (window.innerHeight - height);
-    btn.style.left = x + "px";
-    btn.style.top = y + "px";
-}
-
-
-
-// Floating hearts
-setInterval(() => {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
-}, 500);
-
-
-
-// Sparkles
-setInterval(() => {
-    const s = document.createElement("div");
-    s.classList.add("sparkle");
-    s.style.left = Math.random() * 100 + "vw";
-    s.style.animationDuration = (Math.random() * 2 + 2) + "s";
-    document.body.appendChild(s);
-    setTimeout(() => s.remove(), 3000);
-}, 200);
-
-</script>
-
+    <h1>Will you be my Valentine?</h1>
+    <div class="envelope">
+        <div class="flap"></div>
+        <div class="message">❤️ Love You! ❤️</div>
+    </div>
 </body>
 </html>
