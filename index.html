@@ -115,6 +115,122 @@
         0% { transform: scale(0.2); opacity: 1; }
         100% { transform: scale(3); opacity: 0; }
     }
+    
+    /* Envelope container */
+#envelopeContainer {
+    position: fixed;
+    bottom: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 260px;
+    animation: envelopeRise 2s ease-out forwards;
+}
+
+@keyframes envelopeRise {
+    0% { bottom: -200px; }
+    100% { bottom: 30%; }
+}
+
+/* Envelope body */
+#envelopeBody {
+    width: 260px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Envelope flap */
+#envelopeFlap {
+    width: 260px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: top center;
+    animation: flapOpen 1.5s ease-out forwards;
+    animation-delay: 1s;
+    z-index: 3;
+}
+
+@keyframes flapOpen {
+    0% { transform: rotateX(0deg); }
+    100% { transform: rotateX(180deg); }
+}
+
+/* Letter */
+#letter {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    opacity: 0;
+    animation: letterSlide 2s ease-out forwards;
+    animation-delay: 1.4s;
+    z-index: 1;
+}
+
+@keyframes letterSlide {
+    0% { top: 60px; opacity: 0; }
+    100% { top: -60px; opacity: 1; }
+}
+
+/* Soft glow behind letter */
+#letterGlow {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(rgba(255,200,220,0.8), rgba(255,200,220,0));
+    border-radius: 50%;
+    opacity: 0;
+    animation: glowFade 2s ease-out forwards;
+    animation-delay: 1.4s;
+    filter: blur(20px);
+}
+
+@keyframes glowFade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Typewriter text */
+.typewriter {
+    font-size: 26px;
+    color: #b30047;
+    font-family: "Georgia", serif;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 2px solid #b30047;
+    width: 0;
+    animation: typing 3s steps(20) forwards, blink .7s infinite;
+    margin-top: 20px;
+}
+
+@keyframes typing {
+    from { width: 0; }
+    to { width: 180px; }
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
+/* Floating photos */
+.floatingPhoto {
+    position: fixed;
+    width: 130px;
+    border-radius: 12px;
+    opacity: 0;
+    animation: floatPhoto 12s linear infinite;
+}
+
+@keyframes floatPhoto {
+    0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    20% { opacity: 1; }
+    100% { transform: translateY(-120vh) rotate(10deg); opacity: 0; }
+}
+
 </style>
 </head>
 <body>
