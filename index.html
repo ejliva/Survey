@@ -1,84 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Valentine's Day Envelope Animation</title>
-<style>
-    body {
-        background: #ffdde1;
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding: 50px;
-    }
-
-    .envelope {
-        position: relative;
-        width: 150px;
-        height: 100px;
-        margin: 50px auto;
-        background: #f37070;
-        border-bottom: 30px solid #d45858;
-    }
-
-    .envelope::before, .envelope::after {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 0;
-        border-style: solid;
-    }
-
-    .envelope::before {
-        top: -40px;
-        left: 0;
-        border-width: 0 75px 40px 75px;
-        border-color: transparent transparent #f37070 transparent;
-    }
-
-    .envelope::after {
-        bottom: -30px;
-        left: 0;
-        border-width: 30px 75px 0 75px;
-        border-color: #d45858 transparent transparent transparent;
-    }
-
-    .flap {
-        position: absolute;
-        top: -40px;
-        width: 0;
-        height: 0;
-        border-style: solid;
-        border-width: 40px 75px;
-        border-color: #f37070 transparent;
-        transform-origin: center top;
-        animation: openFlap 2s infinite alternate;
-    }
-
-    @keyframes openFlap {
-        0% {
-            transform: rotateX(0deg);
-        }
-        100% {
-            transform: rotateX(-20deg);
-        }
-    }
-
-    .message {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 16px;
-        color: white;
-        text-align: center;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey</title>
 </head>
 <body>
-    <h1>Will you be my Valentine?</h1>
-    <div class="envelope">
-        <div class="flap"></div>
-        <div class="message">❤️ Love You! ❤️</div>
-    </div>
+    <h1>Welcome to the Survey</h1>
+    <form>
+        <label for="question1">Question 1:</label><br>
+        <input type="text" id="question1" name="question1"><br><br>
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>
