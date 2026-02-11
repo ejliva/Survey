@@ -135,19 +135,24 @@
 
 <script>
 function sayYes() {
-    // Fade to pink
-    document.getElementById("fadeOverlay").style.opacity = "1";
+    document.body.innerHTML = `
+        <div id="envelopeContainer">
+            <img id="envelopeBody" src="https://i.imgur.com/3ZQ3ZQF.png">
+            <img id="envelopeFlap" src="https://i.imgur.com/3ZQ3ZQF.png">
+            <div id="letterGlow"></div>
+            <img id="letter" src="https://i.imgur.com/8QfQ8Q8.png">
+        </div>
 
-    // Heart explosion
-    for (let i = 0; i < 12; i++) {
-        const h = document.createElement("div");
-        h.classList.add("boomHeart");
-        h.innerHTML = "❤️";
-        h.style.left = (window.innerWidth / 2) + (Math.random() * 200 - 100) + "px";
-        h.style.top = (window.innerHeight / 2) + (Math.random() * 200 - 100) + "px";
-        document.body.appendChild(h);
-        setTimeout(() => h.remove(), 1000);
-    }
+        <div style="position: fixed; top: 65%; left: 50%; transform: translateX(-50%);">
+            <div class="typewriter">I love you</div>
+        </div>
+
+        <!-- Floating photos (replace URLs later) -->
+        <img class="floatingPhoto" style="left: 10%;" src="PHOTO1_URL_HERE">
+        <img class="floatingPhoto" style="left: 70%;" src="PHOTO2_URL_HERE">
+    `;
+}
+
 
     // Replace page content after fade
     setTimeout(() => {
