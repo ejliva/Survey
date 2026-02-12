@@ -253,7 +253,7 @@
 /* Responsive video */
 video {
     width: 100%;
-    max-width: 400px;
+    max-width: 300px;
     height: auto;
     border-radius: 12px;
     display: block;
@@ -349,15 +349,30 @@ function moveButton() {
 
 
 // Floating hearts
-setInterval(() => {
+    setInterval(() => {
     const heart = document.createElement("div");
     heart.classList.add("heart");
     heart.innerHTML = "❤️";
-    heart.style.left = Math.random() * 100 + "vw";
+
+    // Avoid the center area where the video + buttons are
+    let x = Math.random() * 100; // vw
+    let y = Math.random() * 100; // vh
+
+    // Block out the middle 40% of the screen vertically
+    // and the middle 50% horizontally
+    while (x > 25 && x < 75 && y > 20 && y < 70) {
+        x = Math.random() * 100;
+        y = Math.random() * 100;
+    }
+
+    heart.style.left = x + "vw";
+    heart.style.bottom = "-" + (Math.random() * 20 + 10) + "px";
     heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+
     document.body.appendChild(heart);
     setTimeout(() => heart.remove(), 6000);
 }, 500);
+
 
 
 
