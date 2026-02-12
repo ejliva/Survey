@@ -308,39 +308,7 @@ function moveButton() {
 }
 
 function sayYes() {
-    const overlay = document.getElementById("fadeOverlay");
-    if (overlay) overlay.style.opacity = "1";
-
-    for (let i = 0; i < 12; i++) {
-        const h = document.createElement("div");
-        h.classList.add("boomHeart");
-        h.innerHTML = "❤️";
-        h.style.left = (window.innerWidth / 2) + (Math.random() * 200 - 100) + "px";
-        h.style.top = (window.innerHeight / 2) + (Math.random() * 200 - 100) + "px";
-        document.body.appendChild(h);
-        setTimeout(() => h.remove(), 1000);
-    }
-
-    setTimeout(() => {
-        document.body.innerHTML = `
-            <div id="fadeOverlay"></div>
-            <div id="envelopeContainer">
-                <div id="envelope">
-                    <div id="envelopePocket"></div>
-                    <div id="envelopeFlap"></div>
-                    <div id="letterGlow"></div>
-                    <div id="letter"></div>
-                </div>
-            </div>
-
-            <div style="position: fixed; top: 65%; left: 50%; transform: translateX(-50%);">
-                <div class="typewriter">I love you</div>
-            </div>
-
-            <img class="floatingPhoto" style="left: 10%;" src="IMG_6483.jpeg">
-            <img class="floatingPhoto" style="left: 70%;" src="IMG_6498.jpeg">
-        `;
-    }, 1500);
+    alert("YES button works!");
 }
 
 // Floating hearts (avoid center area a bit)
