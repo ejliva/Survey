@@ -260,6 +260,12 @@ video {
     margin: 20px auto;
 }
 
+/* smoother movement */
+#noBtn {
+    position: absolute;
+    transition: all 0.3s ease;
+}
+
 </style>
 </head>
 <body>
@@ -336,15 +342,43 @@ function sayYes() {
 
 
 // NO BUTTON — moves away
+let escapeSpeed = 1; // increases each time user chases the button
+
 function moveButton() {
     const btn = document.getElementById("noBtn");
+
+    // Button wiggle before escaping
+    btn.animate(
+        [
+            { transform: "translateX(0)" },
+            { transform: "translateX(-10px)" },
+            { transform: "translateX(10px)" },
+            { transform: "translateX(0)" }
+        ],
+        { duration: 200, easing: "ease-in-out" }
+    );
+
+    // Get screen limits
     const width = btn.offsetWidth;
     const height = btn.offsetHeight;
+
+    // Random new position
     const x = Math.random() * (window.innerWidth - width);
     const y = Math.random() * (window.innerHeight - height);
+
+    // Smooth movement animation
+    btn.style.transition = "all 0.35s ease";
     btn.style.left = x + "px";
     btn.style.top = y + "px";
+
+    // Add a funny random rotation
+    const rotation = Math.random() * 60 - 30; // -30° to +30°
+    btn.style.transform = `rotate(${rotation}deg) scale(${1 + escapeSpeed * 0.05})`;
+
+    // Increase escape speed slightly each time
+    escapeSpeed += 0.2;
 }
+
 
 
 
