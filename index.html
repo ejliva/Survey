@@ -1,371 +1,377 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Be My Valentine</title>
-    <style>
-        body {
-            background: #ffdde1;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-            margin: 0;
-            overflow-x: hidden;
-            animation: fadeIn 1.5s ease-in-out;
-            position: relative;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        h1 {
-            font-size: 32px;
-            color: #b30047;
-            animation: popIn 1s ease;
-            margin-top: 10px;
-        }
-
-        @keyframes popIn {
-            0% { transform: scale(0.5); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        #mainContainer {
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 10px;
-            text-align: center;
-        }
-
-        video {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            border-radius: 12px;
-            display: block;
-            margin: 20px auto;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            margin: 10px;
-            font-size: 18px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        #yesBtn {
-            background-color: #ff4d79;
-            color: white;
-            animation: bounce 1.5s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        #noBtn {
-            background-color: #cccccc;
-            color: black;
-            position: absolute;
-            transition: all 0.3s ease;
-        }
-
-        /* Floating hearts */
-        .heart {
-            position: fixed;
-            bottom: -20px;
-            color: #ff4d79;
-            font-size: 25px;
-            animation: floatUp 6s linear infinite;
-            opacity: 0.8;
-            pointer-events: none;
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(0) scale(1); opacity: 0.8; }
-            100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
-        }
-
-        /* Sparkles */
-        .sparkle {
-            position: fixed;
-            width: 6px;
-            height: 6px;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 0 8px white;
-            animation: sparkleFloat 3s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes sparkleFloat {
-            0% { transform: translateY(0) scale(1); opacity: 1; }
-            100% { transform: translateY(-100vh) scale(0.2); opacity: 0; }
-        }
-
-        /* Fade-to-pink overlay */
-        #fadeOverlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: pink;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 2s ease-in-out;
-        }
-
-        /* Heart explosion */
-        .boomHeart {
-            position: fixed;
-            font-size: 30px;
-            color: #ff4d79;
-            animation: explode 1s ease-out forwards;
-            pointer-events: none;
-        }
-
-        @keyframes explode {
-            0% { transform: scale(0.2); opacity: 1; }
-            100% { transform: scale(3); opacity: 0; }
-        }
-
-        /* Envelope container + CSS envelope */
-       #envelopeContainer {
-    width: 260px;
-    height: 260px; /* new */
-    position: fixed;
-    bottom: -200px;
-    left: 50%;
-    transform: translateX(-50%);
-    animation: envelopeRise 2s ease-out forwards;
+<meta charset="UTF-8">
+<title>Be My Valentine</title>
+<style>
+body {
+background: #ffdde1;
+font-family: Arial, sans-serif;
+text-align: center;
+padding: 20px;
+margin: 0;
+overflow-x: hidden;
+animation: fadeIn 1.5s ease-in-out;
+position: relative;
 }
 
-
-        #envelope {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
-        #envelopePocket {
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: 70%;
-            background: #ffffff;
-            border: 2px solid #ff4d79;
-            border-radius: 0 0 14px 14px;
-            box-sizing: border-box;
-        }
-
-        #envelopeFlap {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 70%;
-            background: #ff9bb5;
-            clip-path: polygon(0 0, 100% 0, 50% 70%);
-            transform-origin: top center;
-            animation: flapOpen 1.5s ease-out forwards;
-            animation-delay: 1s;
-        }
-
-        #letter {
-    position: absolute;
-    top: 20px; /* lowered so it starts inside the envelope */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 220px; /* fits inside 260px envelope */
-    opacity: 0;
-    animation: letterSlide 2s ease-out forwards;
-    animation-delay: 1.4s;
-    z-index: 1;
+@keyframes fadeIn {
+from { opacity: 0; }
+to { opacity: 1; }
 }
 
-
-        #letterGlow {
-    top: 0px; /* aligns with letter */
-    left: 50%;
-    transform: translateX(-50%);
-    width: 260px;
-    height: 260px;
+h1 {
+font-size: 32px;
+color: #b30047;
+animation: popIn 1s ease;
+margin-top: 10px;
 }
 
+@keyframes popIn {
+0% { transform: scale(0.5); opacity: 0; }
+100% { transform: scale(1); opacity: 1; }
+}
 
-        .typewriter {
-            font-size: 26px;
-            color: #b30047;
-            font-family: "Georgia", serif;
-            white-space: nowrap;
-            overflow: hidden;
-            border-right: 2px solid #b30047;
-            width: 0;
-            animation: typing 3s steps(20) forwards, blink .7s infinite;
-            margin-top: 20px;
-        }
+#mainContainer {
+max-width: 500px;
+margin: 0 auto;
+padding: 10px;
+text-align: center;
+}
 
-        @keyframes typing {
-            from { width: 0; }
+video {
+width: 100%;
+max-width: 300px;
+height: auto;
+border-radius: 12px;
+display: block;
+margin: 20px auto;
+}
+
+.btn {
+padding: 12px 24px;
+margin: 10px;
+font-size: 18px;
+border: none;
+border-radius: 10px;
+cursor: pointer;
+}
+
+#yesBtn {
+background-color: #ff4d79;
+color: white;
+animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+0%, 100% { transform: translateY(0); }
+50% { transform: translateY(-10px); }
+}
+
+#noBtn {
+background-color: #cccccc;
+color: black;
+position: absolute;
+transition: all 0.3s ease;
+}
+
+/* Floating hearts */
+.heart {
+position: fixed;
+bottom: -20px;
+color: #ff4d79;
+font-size: 25px;
+animation: floatUp 6s linear infinite;
+opacity: 0.8;
+pointer-events: none;
+}
+
+@keyframes floatUp {
+0% { transform: translateY(0) scale(1); opacity: 0.8; }
+100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
+}
+
+/* Sparkles */
+.sparkle {
+position: fixed;
+width: 6px;
+height: 6px;
+background: white;
+border-radius: 50%;
+box-shadow: 0 0 8px white;
+animation: sparkleFloat 3s linear infinite;
+pointer-events: none;
+}
+
+@keyframes sparkleFloat {
+0% { transform: translateY(0) scale(1); opacity: 1; }
+100% { transform: translateY(-100vh) scale(0.2); opacity: 0; }
+}
+
+/* Fade-to-pink overlay */
+#fadeOverlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: pink;
+opacity: 0;
+pointer-events: none;
+transition: opacity 2s ease-in-out;
+}
+
+/* Heart explosion */
+.boomHeart {
+position: fixed;
+font-size: 30px;
+color: #ff4d79;
+animation: explode 1s ease-out forwards;
+pointer-events: none;
+}
+
+@keyframes explode {
+0% { transform: scale(0.2); opacity: 1; }
+100% { transform: scale(3); opacity: 0; }
+}
+
+/* Envelope container + CSS envelope */
+#envelopeContainer {
+position: fixed;
+bottom: 20%;
+left: 50%;
+transform: translateX(-50%);
+width: 260px;
+height: 180px;
+}
+
+#envelope {
+position: relative;
+width: 100%;
+height: 100%;
+}
+
+#envelopePocket {
+position: absolute;
+bottom: 0;
+width: 100%;
+height: 70%;
+background: #ffffff;
+border: 2px solid #ff4d79;
+border-radius: 0 0 14px 14px;
+box-sizing: border-box;
+}
+
+#envelopeFlap {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 70%;
+background: #ff9bb5;
+clip-path: polygon(0 0, 100% 0, 50% 70%);
+transform-origin: top center;
+animation: flapOpen 1.5s ease-out forwards;
+animation-delay: 1s;
+}
+
+#letter {
+position: absolute;
+bottom: 10px;
+left: 50%;
+transform: translateX(-50%);
+width: 80%;
+height: 60%;
+background: #fffdf7;
+border-radius: 10px;
+box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+opacity: 0;
+animation: letterSlide 2s ease-out forwards;
+animation-delay: 1.4s;
+}
+
+#letterGlow {
+position: absolute;
+top: -20px;
+left: 50%;
+transform: translateX(-50%);
+width: 260px;
+height: 260px;
+background: radial-gradient(rgba(255,200,220,0.8), rgba(255,200,220,0));
+border-radius: 50%;
+opacity: 0;
+animation: glowFade 2s ease-out forwards;
+animation-delay: 1.4s;
+filter: blur(20px);
+}
+
+.typewriter {
+font-size: 26px;
+color: #b30047;
+font-family: "Georgia", serif;
+white-space: nowrap;
+overflow: hidden;
+border-right: 2px solid #b30047;
+width: 0;
+animation: typing 3s steps(20) forwards, blink .7s infinite;
+margin-top: 20px;
+}
+
+@keyframes typing {
+from { width: 0; }
+            to { width: 400px; }
             to { width: 100%; }
-        }
+}
 
-        @keyframes blink {
-            50% { border-color: transparent; }
-        }
+@keyframes blink {
+50% { border-color: transparent; }
+}
 
-        @keyframes flapOpen {
-            0% { transform: rotateX(0deg); }
-            100% { transform: rotateX(180deg); }
-        }
+@keyframes flapOpen {
+0% { transform: rotateX(0deg); }
+100% { transform: rotateX(180deg); }
+}
 
-        @keyframes letterSlide {
-            0% { top: 60px; opacity: 0; }   /* deeper inside envelope */
-            100% { top: -10px; opacity: 1; } /* ends just above the flap */
-        }
+@keyframes letterSlide {
+0% { bottom: 10px; opacity: 0; }
+100% { bottom: 80%; opacity: 1; }
+}
 
+@keyframes glowFade {
+0% { opacity: 0; }
+100% { opacity: 1; }
+}
 
-        @keyframes glowFade {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
+.floatingPhoto {
+position: fixed;
+width: 130px;
+border-radius: 12px;
+opacity: 0;
+animation: floatPhoto 12s linear infinite;
+}
 
-        .floatingPhoto {
-            position: fixed;
-            width: 130px;
-            border-radius: 12px;
-            opacity: 0;
-            animation: floatPhoto 12s linear infinite;
-        }
-
-        @keyframes floatPhoto {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            20% { opacity: 1; }
-            100% { transform: translateY(-120vh) rotate(10deg); opacity: 0; }
-        }
-    </style>
+@keyframes floatPhoto {
+0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+20% { opacity: 1; }
+100% { transform: translateY(-120vh) rotate(10deg); opacity: 0; }
+}
+</style>
 </head>
 <body>
 
 <audio autoplay loop>
-    <source src="YOUR-MUSIC-LINK.mp3" type="audio/mpeg">
+<source src="YOUR-MUSIC-LINK.mp3" type="audio/mpeg">
 </audio>
 
 <div id="fadeOverlay"></div>
 
 <div id="mainContainer">
-    <h1>Will you be my Valentine?</h1>
+<h1>Will you be my Valentine?</h1>
 
-    <video autoplay loop muted playsinline>
-        <source src="Goofy.MP4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+<video autoplay loop muted playsinline>
+<source src="Goofy.MP4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 
-    <button id="yesBtn" class="btn" onclick="sayYes()">Yes</button>
-    <button id="noBtn" class="btn" onmouseover="moveButton()">No</button>
+<button id="yesBtn" class="btn" onclick="sayYes()">Yes</button>
+<button id="noBtn" class="btn" onmouseover="moveButton()">No</button>
 </div>
 
 <script>
 let escapeSpeed = 1;
 
 function moveButton() {
-    const btn = document.getElementById("noBtn");
+const btn = document.getElementById("noBtn");
 
-    btn.animate(
-        [
-            { transform: "translateX(0)" },
-            { transform: "translateX(-10px)" },
-            { transform: "translateX(10px)" },
-            { transform: "translateX(0)" }
-        ],
-        { duration: 200, easing: "ease-in-out" }
-    );
+btn.animate(
+[
+{ transform: "translateX(0)" },
+{ transform: "translateX(-10px)" },
+{ transform: "translateX(10px)" },
+{ transform: "translateX(0)" }
+],
+{ duration: 200, easing: "ease-in-out" }
+);
 
-    const width = btn.offsetWidth;
-    const height = btn.offsetHeight;
+const width = btn.offsetWidth;
+const height = btn.offsetHeight;
 
-    const x = Math.random() * (window.innerWidth - width);
-    const y = Math.random() * (window.innerHeight - height);
+const x = Math.random() * (window.innerWidth - width);
+const y = Math.random() * (window.innerHeight - height);
 
-    btn.style.left = x + "px";
-    btn.style.top = y + "px";
+btn.style.left = x + "px";
+btn.style.top = y + "px";
 
-    const rotation = Math.random() * 60 - 30;
-    btn.style.transform = `rotate(${rotation}deg) scale(${1 + escapeSpeed * 0.05})`;
+const rotation = Math.random() * 60 - 30;
+btn.style.transform = `rotate(${rotation}deg) scale(${1 + escapeSpeed * 0.05})`;
 
-    escapeSpeed += 0.2;
+escapeSpeed += 0.2;
 }
 
 function sayYes() {
-    const overlay = document.getElementById("fadeOverlay");
-    if (overlay) overlay.style.opacity = "1";
+const overlay = document.getElementById("fadeOverlay");
+if (overlay) overlay.style.opacity = "1";
 
-    for (let i = 0; i < 12; i++) {
-        const h = document.createElement("div");
-        h.classList.add("boomHeart");
-        h.innerHTML = "❤️";
-        h.style.left = (window.innerWidth / 2) + (Math.random() * 200 - 100) + "px";
-        h.style.top = (window.innerHeight / 2) + (Math.random() * 200 - 100) + "px";
-        document.body.appendChild(h);
-        setTimeout(() => h.remove(), 1000);
-    }
+for (let i = 0; i < 12; i++) {
+const h = document.createElement("div");
+h.classList.add("boomHeart");
+h.innerHTML = "❤️";
+h.style.left = (window.innerWidth / 2) + (Math.random() * 200 - 100) + "px";
+h.style.top = (window.innerHeight / 2) + (Math.random() * 200 - 100) + "px";
+document.body.appendChild(h);
+setTimeout(() => h.remove(), 1000);
+}
 
-    setTimeout(() => {
-        document.body.innerHTML = `
-            <div id="fadeOverlay"></div>
-            <div id="envelopeContainer">
-                <div id="envelope">
-                    <div id="envelopePocket"></div>
-                    <div id="envelopeFlap"></div>
-                    <div id="letterGlow"></div>
-                    <div id="letter"></div>
-                </div>
-            </div>
+setTimeout(() => {
+document.body.innerHTML = `
+           <div id="fadeOverlay"></div>
+           <div id="envelopeContainer">
+               <div id="envelope">
+                   <div id="envelopePocket"></div>
+                   <div id="envelopeFlap"></div>
+                   <div id="letterGlow"></div>
+                   <div id="letter"></div>
+               </div>
+           </div>
 
-            <div style="position: fixed; top: 65%; left: 50%; transform: translateX(-50%);">
-                <div class="typewriter">You chasing the No button is cute, but you're mine</div>
-            </div>
+           <div style="position: fixed; top: 65%; left: 50%; transform: translateX(-50%);">
+               <div class="typewriter">You chasing the No button is cute, but you're mine</div>
+           </div>
 
-            <img class="floatingPhoto" style="left: 10%;" src="IMG_6483.jpeg">
-            <img class="floatingPhoto" style="left: 70%;" src="IMG_6498.jpeg">
-        `;
-    }, 1500);
+           <img class="floatingPhoto" style="left: 10%;" src="IMG_6483.jpeg">
+           <img class="floatingPhoto" style="left: 70%;" src="IMG_6498.jpeg">
+       `;
+}, 1500);
 }
 
 // Floating hearts (avoid center area a bit)
 setInterval(() => {
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "❤️";
+const heart = document.createElement("div");
+heart.classList.add("heart");
+heart.innerHTML = "❤️";
 
-    let x = Math.random() * 100;
-    let y = Math.random() * 100;
+let x = Math.random() * 100;
+let y = Math.random() * 100;
 
-    while (x > 25 && x < 75 && y > 20 && y < 70) {
-        x = Math.random() * 100;
-        y = Math.random() * 100;
-    }
+while (x > 25 && x < 75 && y > 20 && y < 70) {
+x = Math.random() * 100;
+y = Math.random() * 100;
+}
 
-    heart.style.left = x + "vw";
-    heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
-    document.body.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
+heart.style.left = x + "vw";
+heart.style.animationDuration = (Math.random() * 3 + 4) + "s";
+document.body.appendChild(heart);
+setTimeout(() => heart.remove(), 6000);
 }, 500);
 
 // Sparkles
 setInterval(() => {
-    const s = document.createElement("div");
-    s.classList.add("sparkle");
-    s.style.left = Math.random() * 100 + "vw";
-    s.style.animationDuration = (Math.random() * 2 + 2) + "s";
-    document.body.appendChild(s);
-    setTimeout(() => s.remove(), 3000);
+const s = document.createElement("div");
+s.classList.add("sparkle");
+s.style.left = Math.random() * 100 + "vw";
+s.style.animationDuration = (Math.random() * 2 + 2) + "s";
+document.body.appendChild(s);
+setTimeout(() => s.remove(), 3000);
 }, 200);
 </script>
 
