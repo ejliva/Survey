@@ -176,34 +176,26 @@
         }
 
         #letter {
-            position: absolute;
-            bottom: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            height: 60%;
-            background: #fffdf7;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            opacity: 0;
-            animation: letterSlide 2s ease-out forwards;
-            animation-delay: 1.4s;
-        }
+    position: absolute;
+    top: 20px; /* lowered so it starts inside the envelope */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 220px; /* fits inside 260px envelope */
+    opacity: 0;
+    animation: letterSlide 2s ease-out forwards;
+    animation-delay: 1.4s;
+    z-index: 1;
+}
+
 
         #letterGlow {
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 260px;
-            height: 260px;
-            background: radial-gradient(rgba(255,200,220,0.8), rgba(255,200,220,0));
-            border-radius: 50%;
-            opacity: 0;
-            animation: glowFade 2s ease-out forwards;
-            animation-delay: 1.4s;
-            filter: blur(20px);
-        }
+    top: 0px; /* aligns with letter */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 260px;
+    height: 260px;
+}
+
 
         .typewriter {
             font-size: 26px;
@@ -232,9 +224,10 @@
         }
 
         @keyframes letterSlide {
-            0% { bottom: 10px; opacity: 0; }
-            100% { bottom: 80%; opacity: 1; }
+            0% { top: 60px; opacity: 0; }   /* deeper inside envelope */
+            100% { top: -10px; opacity: 1; } /* ends just above the flap */
         }
+
 
         @keyframes glowFade {
             0% { opacity: 0; }
